@@ -117,8 +117,14 @@ func (t *Todos) Print() {
 
 	table.Body = &simpletable.Body{Cells: cells}
 
+	pendingTodo := red(fmt.Sprintf("You have %d pending todos", t.CountPending()))
+
+	if t.CountPending() == 0 {
+		pendingTodo = green(fmt.Sprintf("Great! you have no pretending todos"))
+	}
+
 	table.Footer = &simpletable.Footer{Cells: []*simpletable.Cell{
-		{Align: simpletable.AlignCenter, Span: 5, Text: red(fmt.Sprintf("You have %d pending todos", t.CountPending()))},
+		{Align: simpletable.AlignCenter, Span: 5, Text: pendingTodo},
 	}}
 
 	table.SetStyle(simpletable.StyleUnicode)
